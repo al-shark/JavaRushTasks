@@ -22,7 +22,13 @@ public class Hippodrome {
 
     public void print() {}
 
-    public void run() {}
+    public void run() throws InterruptedException {
+        for (int i=1; i<101; i++) {
+            move();
+            print();
+            Thread.sleep(200);
+        }
+    }
 
     public static void main(String[] args) {
         List<Horse> h = new ArrayList<>();
