@@ -18,6 +18,12 @@ public class Hippodrome {
         return horses;
     }
 
+    public void move() {}
+
+    public void print() {}
+
+    public void run() {}
+
     public static void main(String[] args) {
         List<Horse> h = new ArrayList<>();
         h.add(new Horse("Horse1",3,0));
