@@ -43,5 +43,8 @@ public class Horse {
     }
 
     public void print() {
+        String progress="";
+        for (int i=0; i<(int) distance; i++) progress+=".";
+        System.out.println(progress+name);
     }
 }
