@@ -36,6 +36,11 @@ public class Horse {
 
     public double getDistance() {
         return distance;
+    }
 
+    public void move() {
+    }
+
+    public void print() {
     }
 }
