@@ -7,7 +7,7 @@ StringTokenizer
 */
 public class Solution {
     public static void main(String[] args) {
-        String[] t = getTokens("sfd. werwer .wrwer . wer.werwerwe.werwer.werwer.wer.wer.we.","\\.");
+        String[] t = getTokens("sfd. werwer .wrwer. wer.werwerwe.werwer.werwer.wer.wer.we.","\\.");
         for (String x : t) System.out.println(x);
     }
 
