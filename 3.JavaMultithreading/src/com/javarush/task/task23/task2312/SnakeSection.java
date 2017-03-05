@@ -1,10 +1,14 @@
 package com.javarush.task.task23.task2312;
 
-/**
- * Created by sharka on 05.03.2017.
- */
 public class SnakeSection {
-    private int x,y;
+    private int x;
+    private int y;
+
+
+    public SnakeSection(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public int getX() {
         return x;
@@ -12,11 +16,5 @@ public class SnakeSection {
 
     public int getY() {
         return y;
-    }
-
-    public SnakeSection(int x, int y) {
-
-        this.x = x;
-        this.y = y;
     }
 }
