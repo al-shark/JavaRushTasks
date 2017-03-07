@@ -3,7 +3,7 @@ package com.javarush.task.task24.task2413;
 /**
  * Created by sharka on 08.03.2017.
  */
-public class BaseObject {
+public abstract class BaseObject {
     private double x,y,radius;
 
     public BaseObject(double x, double y, double radius) {
@@ -11,6 +11,14 @@ public class BaseObject {
         this.y = y;
         this.radius = radius;
     }
+
+    public boolean isIntersec(BaseObject o) {
+        return Math.sqrt(Math.pow(x-o.getX(),2)+Math.pow(y-o.getY(),2)) <= Math.max(radius,o.getRadius());
+    }
+
+    public abstract void draw(Canvas canvas);
+
+    public abstract void move();
 
     public double getX() {
         return x;
