@@ -4,7 +4,7 @@ package com.javarush.task.task24.task2413;
  * Created by sharka on 08.03.2017.
  */
 public abstract class BaseObject {
-    private double x,y,radius;
+    protected double x,y,radius;
 
     public BaseObject(double x, double y, double radius) {
         this.x = x;
