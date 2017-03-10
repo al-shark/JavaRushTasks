@@ -19,5 +19,4 @@ public class EditUserView implements View {
         System.out.println("\t"+modelData.getActiveUser());
         System.out.println("===================================================");
     }
-
 }
