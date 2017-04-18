@@ -3,6 +3,8 @@ package com.javarush.task.task23.task2312;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.javarush.task.task23.task2312.Room.game;
+
 /**
  * Created by sharka on 05.03.2017.
  */
@@ -53,5 +55,9 @@ public class Snake {
 
     public SnakeDirection getDirection() {
         return direction;
+    }
+
+    public void checkBorders(SnakeSection head) {
+        if (game.getWidth()<=head.getX() || game.getHeight()<=head.getY() || head.getY()<0 || head.getX()<0) isAlive=false;
     }
 }
