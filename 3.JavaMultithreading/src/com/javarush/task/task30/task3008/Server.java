@@ -18,6 +18,27 @@ public class Server {
         public Handler(Socket socket) {
             this.socket = socket;
         }
+
+        private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
+            Message message;
+            String userName = "";
+
+            while ("".equals(userName)) {
+                message = new Message(MessageType.NAME_REQUEST);
+                connection.send(message);
+                message = connection.receive();
+                if (MessageType.USER_NAME.equals(message.getType())) {
+                    userName = message.getData().trim();
+                    if (!("".equals(userName)) && !(connectionMap.containsKey(userName))) {
+                        connectionMap.put(userName,connection);
+                        message = new Message(MessageType.NAME_ACCEPTED);
+                        connection.send(message);
+                    } else userName = "";
+                }
+            }
+
+            return userName;
+        }
     }
 
     public static void sendBroadcastMessage(Message message) {
