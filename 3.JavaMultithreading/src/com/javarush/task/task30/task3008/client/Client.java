@@ -61,6 +61,24 @@ public class Client {
                 }
             }
         }
+
+        public void run() {
+            String sAddress;
+            int sPort;
+
+            sAddress = getServerAddress();
+            sPort = getServerPort();
+
+            try {
+                connection = new Connection(new Socket(sAddress,sPort));
+                clientHandshake();
+                clientMainLoop();
+            }
+            catch (IOException | ClassNotFoundException e) {
+                notifyConnectionStatusChanged(false);
+            }
+
+        }
     }
 
     protected String getServerAddress() {
