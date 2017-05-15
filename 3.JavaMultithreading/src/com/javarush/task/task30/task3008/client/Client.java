@@ -35,6 +35,32 @@ public class Client {
                 Client.this.notify();
             }
         }
+
+        protected void clientHandshake() throws IOException, ClassNotFoundException {
+            Message message = null;
+            while (!clientConnected) {
+                message = connection.receive();
+                if (MessageType.NAME_REQUEST.equals(message.getType())) {
+                    connection.send(new Message(MessageType.USER_NAME,getUserName()));
+                } else {if (MessageType.NAME_ACCEPTED.equals(message.getType())) notifyConnectionStatusChanged(true);
+                        else throw new IOException("Unexpected MessageType"); }
+            }
+        }
+
+        protected void clientMainLoop() throws IOException, ClassNotFoundException {
+            Message message = null;
+            while (true) {
+                message = connection.receive();
+                if (MessageType.TEXT.equals(message.getType())) { processIncomingMessage(message.getData());}
+                else {
+                    if (MessageType.USER_ADDED.equals(message.getType())) { informAboutAddingNewUser(message.getData());}
+                    else {
+                        if (MessageType.USER_REMOVED.equals(message.getType())) informAboutDeletingNewUser(message.getData());
+                        else throw new IOException("Unexpected MessageType");
+                    }
+                }
+            }
+        }
     }
 
     protected String getServerAddress() {
