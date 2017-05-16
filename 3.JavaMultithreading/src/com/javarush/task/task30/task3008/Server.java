@@ -74,6 +74,7 @@ public class Server {
                 serverMainLoop(connection,userName);
             } catch (IOException | ClassNotFoundException e) {
                 ConsoleHelper.writeMessage("Ошибка обмена с удаленным адресом");
+                e.printStackTrace();
             }
 
             if (!"".equals(userName)) {
