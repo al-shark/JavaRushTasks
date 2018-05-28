@@ -9,11 +9,24 @@ import java.util.*;
 public class CustomTree extends AbstractList<String> implements Serializable, Cloneable {
     Entry<String> root = new Entry<>("Root");
 
-    private void addChild(Entry<String> parent, Entry<String> child){
+    private void restoreTree(){
+        Queue<Entry> queue = new LinkedList<>();
+        Entry<String> parent = root;
+        do {
+            if (!queue.isEmpty()) parent = queue.poll();
+            if (parent.leftChild!=null) queue.add(parent.leftChild);
+            else parent.availableToAddLeftChildren = true;
+            if (parent.rightChild!=null) queue.add(parent.rightChild);
+            else parent.availableToAddRightChildren = true;
+        } while (!queue.isEmpty());
+    }
+    private boolean addChild(Entry<String> parent, Entry<String> child) {
         Queue<Entry> queue = new LinkedList<>();
         do {
-            parent.checkChildren();
-            if (!parent.isAvailableToAddChildren()) {
+            if (parent!=null) {
+                parent.checkChildren();
+                boolean searchCrit = !parent.isAvailableToAddChildren();
+            if (searchCrit) {
                 queue.add(parent.leftChild);
                 queue.add(parent.rightChild);
                 parent = queue.poll();
@@ -23,9 +36,10 @@ public class CustomTree extends AbstractList<String> implements Serializable, Cl
                 child.lineNumber = parent.lineNumber+1;
                 if (parent.leftChild == null) parent.leftChild = child;
                 else parent.rightChild = child;
-                queue = null;
-            }
-        } while ((queue!=null) && (!queue.isEmpty()));
+                return true;
+            }} else parent = queue.poll();;
+        } while (!queue.isEmpty());
+        return false;
     }
 
     @Override
@@ -35,7 +49,10 @@ public class CustomTree extends AbstractList<String> implements Serializable, Cl
 
     public boolean add(String element) {
         Entry<String> child = new Entry<>(element);
-        addChild(root,child);
+        if (!addChild(root,child)) {
+            restoreTree();
+            addChild(root,child);
+        }
         return true;
     }
 
@@ -45,6 +62,7 @@ public class CustomTree extends AbstractList<String> implements Serializable, Cl
         Entry<String> parent = root;
         int entrySize = 0;
         do {
+            if (!queue.isEmpty()) parent = queue.poll();
             if (parent.leftChild!=null) {
                 queue.add(parent.leftChild);
                 entrySize++;
@@ -53,7 +71,6 @@ public class CustomTree extends AbstractList<String> implements Serializable, Cl
                 queue.add(parent.rightChild);
                 entrySize++;
             }
-            if (!queue.isEmpty()) parent = queue.poll();
         } while (!queue.isEmpty());
 
         return entrySize;
@@ -64,6 +81,7 @@ public class CustomTree extends AbstractList<String> implements Serializable, Cl
         Entry<String> parent = root;
         String parentStr = "";
         do {
+            if (!queue.isEmpty()) parent = queue.poll();
             if (s.equals(parent.elementName)) {
                 parentStr = parent.parent !=null ? parent.parent.elementName : null;
                 break;
@@ -74,10 +92,45 @@ public class CustomTree extends AbstractList<String> implements Serializable, Cl
             if (parent.rightChild!=null) {
                 queue.add(parent.rightChild);
             }
-            if (!queue.isEmpty()) parent = queue.poll();
         } while (!queue.isEmpty());
 
         return parentStr;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        if (!"String".equals(o.getClass().getSimpleName())) throw new UnsupportedOperationException();
+        String element = (String) o;
+        Queue<Entry> queue = new LinkedList<>();
+        Entry<String> parent = root;
+
+        do {
+            if (!queue.isEmpty()) parent = queue.poll();
+            if (element.equals(parent.elementName)) {
+                parent = parent.parent;
+                break;
+            }
+            if (parent.leftChild!=null) {
+                queue.add(parent.leftChild);
+            }
+            if (parent.rightChild!=null) {
+                queue.add(parent.rightChild);
+            }
+        } while (!queue.isEmpty());
+
+        if (parent == null) return false;
+        if (parent.leftChild == null) {
+            parent.rightChild = null;
+            return true;
+        }
+
+        if (element.equals(parent.leftChild.elementName)) {
+            parent.leftChild = null;
+        }
+        else {
+            parent.rightChild = null;
+        }
+        return true;
     }
 
     static class Entry<T> implements Serializable {
