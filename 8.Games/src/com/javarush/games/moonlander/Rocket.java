@@ -42,6 +42,10 @@ public class Rocket extends GameObject {
         checkBorders();
     }
 
+    public boolean isStopped() {
+        return speedY < (10 * boost) ? true : false;
+    }
+
     public Rocket(double x, double y) {
         super(x, y, ShapeMatrix.ROCKET);
     }
