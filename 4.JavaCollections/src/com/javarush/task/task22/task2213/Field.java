@@ -11,7 +11,14 @@ public class Field {
         this.matrix = new int[height][width];
     }
 
-    public void print() {}
+    public void print() {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                System.out.print(matrix[i][j]==0 ? "." : "X");
+            }
+            System.out.println();
+        }
+    }
 
     public void removeFullLines() {}
 
