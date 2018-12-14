@@ -20,7 +20,7 @@ public class Figure {
     public boolean isCurrentPositionAvailable() {return true;}
 
     public void landed() {}
-
+    
     public int getX() {
         return x;
     }
