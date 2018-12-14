@@ -12,6 +12,10 @@ public class Rocket extends GameObject {
         super(x, y, ShapeMatrix.ROCKET);
     }
 
+    public void crash() {
+        matrix = ShapeMatrix.ROCKET_CRASH;
+    }
+
     public void land() {
         y--;
     }

@@ -29,7 +29,10 @@ public class MoonLanderGame extends Game {
     }
 
     private void gameOver() {
+        rocket.crash();
+        isGameStopped = true;
         showMessageDialog(Color.NONE,"Loose",Color.RED,75);
+        stopTurnTimer();
     }
 
     @Override
@@ -45,6 +48,9 @@ public class MoonLanderGame extends Game {
             case RIGHT:
                 isRightPressed = true;
                 isLeftPressed = false;
+                break;
+            case SPACE:
+                if (isGameStopped) createGame();
         }
     }
 
