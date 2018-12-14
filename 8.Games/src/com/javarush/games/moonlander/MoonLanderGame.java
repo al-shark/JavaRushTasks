@@ -11,6 +11,36 @@ public class MoonLanderGame extends Game {
     private boolean isLeftPressed;
     private boolean isRightPressed;
 
+    @Override
+    public void onKeyPress(Key key) {
+        switch (key) {
+            case UP:
+                isUpPressed = true;
+                break;
+            case LEFT:
+                isLeftPressed = true;
+                isRightPressed = false;
+                break;
+            case RIGHT:
+                isRightPressed = true;
+                isLeftPressed = false;
+        }
+    }
+
+    @Override
+    public void onKeyReleased(Key key) {
+        switch (key) {
+            case UP:
+                isUpPressed = false;
+                break;
+            case LEFT:
+                isLeftPressed = false;
+                break;
+            case RIGHT:
+                isRightPressed = false;
+        }
+    }
+
     private void createGame() {
         isLeftPressed = false;
         isRightPressed = false;
