@@ -4,6 +4,7 @@ public class Rocket extends GameObject {
     private double speedY = 0;
     private double speedX = 0;
     private double boost = 0.05;
+    private double slowdown = boost/10;
 
     private void checkBorders(){
         if (x < 0) {
@@ -28,6 +29,15 @@ public class Rocket extends GameObject {
         boolean isXchanged = false;
         if (isLeftPressed) {speedX = speedX - boost; isXchanged = true;}
         if (isRightPressed) {speedX = speedX + boost; isXchanged = true;}
+        if (!isLeftPressed && !isRightPressed) {
+            if ((((-1)*slowdown) <= speedX) && (speedX <= slowdown)) {speedX = 0; isXchanged =true;}
+            else {
+                if (speedX > slowdown) {speedX = speedX - slowdown; isXchanged = true;}
+                else {
+                    if (speedX < ((-1)*slowdown)) {speedX = speedX + slowdown; isXchanged = true;}
+                }
+            }
+        }
         if (isXchanged) x = x + speedX;
         checkBorders();
     }
