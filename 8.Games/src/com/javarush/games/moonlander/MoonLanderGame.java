@@ -11,11 +11,23 @@ public class MoonLanderGame extends Game {
     private void createGame() {
         createGameObjects();
         drawScene();
+        setTurnTimer(50);
     }
 
     private void createGameObjects() {
         rocket = new Rocket(WIDTH/2,0);
         landscape = new GameObject(0,25,ShapeMatrix.LANDSCAPE);
+    }
+
+    @Override
+    public void onTurn(int step) {
+        rocket.move();
+        drawScene();
+    }
+
+    @Override
+    public void setCellColor(int x, int y, Color color) {
+        if (!((x<0) || (x>WIDTH-1) || (y<0) || (y>HEIGHT-1))) super.setCellColor(x, y, color);
     }
 
     private void drawScene() {
