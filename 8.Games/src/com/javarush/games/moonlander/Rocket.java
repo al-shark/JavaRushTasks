@@ -32,15 +32,31 @@ public class Rocket extends GameObject {
     public void draw(Game gm) {
         super.draw(gm);
         downFire.draw(gm);
+        leftFire.draw(gm);
+        rightFire.draw(gm);
     }
 
-    private void switchFire(boolean isUpPressed) {
+    private void switchFire(boolean isUpPressed, boolean isLeftPressed, boolean isRightPressed) {
         if (isUpPressed) {
             downFire.x = x+matrix[0].length/2;
             downFire.y = y+matrix.length;
             downFire.show();
         }
         else downFire.hide();
+
+        if (isLeftPressed) {
+            leftFire.x = x+matrix[0].length;
+            leftFire.y = y+matrix.length;
+            leftFire.show();
+        }
+        else leftFire.hide();
+
+        if (isRightPressed) {
+            rightFire.x = x-ShapeMatrix.FIRE_SIDE_1[0].length;
+            rightFire.y = y+matrix.length;
+            rightFire.show();
+        }
+        else rightFire.hide();
     }
 
     public void crash() {
@@ -74,7 +90,7 @@ public class Rocket extends GameObject {
         }
         x += speedX;
         checkBorders();
-        switchFire(isUpPressed);
+        switchFire(isUpPressed,isLeftPressed,isRightPressed);
     }
 
     private void checkBorders() {
