@@ -28,6 +28,21 @@ public class Rocket extends GameObject {
         this.downFire = new RocketFire(fd);
     }
 
+    @Override
+    public void draw(Game gm) {
+        super.draw(gm);
+        downFire.draw(gm);
+    }
+
+    private void switchFire(boolean isUpPressed) {
+        if (isUpPressed) {
+            downFire.x = x+matrix[0].length/2;
+            downFire.y = y+matrix.length;
+            downFire.show();
+        }
+        else downFire.hide();
+    }
+
     public void crash() {
         matrix = ShapeMatrix.ROCKET_CRASH;
     }
@@ -59,6 +74,7 @@ public class Rocket extends GameObject {
         }
         x += speedX;
         checkBorders();
+        switchFire(isUpPressed);
     }
 
     private void checkBorders() {
