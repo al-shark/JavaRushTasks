@@ -13,6 +13,19 @@ public abstract class BaseObject {
         this.isAlive = true;
     }
 
+    public void draw() {}
+
+    public void move() {}
+
+    public void die() {
+        this.isAlive = false;
+    }
+
+    public boolean isIntersect(BaseObject o) {
+        if (Math.sqrt((x - o.getX())*(x - o.getX()) + (y-o.getY())*(y-o.getY())) < (Math.max(radius,o.getRadius()))) return true;
+        return false;
+    }
+
     public boolean isAlive() {
         return isAlive;
     }
