@@ -10,6 +10,13 @@ public class Space {
     private ArrayList<Rocket> rockets = new ArrayList();
     private ArrayList<Bomb> bombs = new ArrayList();;
 
+
+    public void run() {}
+
+    public void draw() {}
+
+    public void sleep(int ms) {}
+
     public void setShip(SpaceShip ship) {
         this.ship = ship;
     }
