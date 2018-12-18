@@ -5,6 +5,25 @@ public class Canvas {
     private int height;
     private char[][] matrix;
 
+    public void print() {
+        for (int i = 0; i < height ; i++) {
+            for (int j = 0; j < width; j++) {
+                System.out.print(matrix[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println();
+    }
+
+    public void clear() {
+        for (int i = 0; i < width ; i++) {
+            for (int j = 0; j < height; j++) {
+                matrix[j][i] = ' ';
+            }
+        }
+    }
+    
     public void drawMatrix(double x, double y, int[][] matrix, char c) {
         int xx = (int) Math.round(x);
         int yy = (int) Math.round(y);
