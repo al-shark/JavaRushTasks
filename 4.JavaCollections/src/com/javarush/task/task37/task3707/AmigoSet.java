@@ -8,6 +8,17 @@ public class AmigoSet <E> extends AbstractSet implements Cloneable, Serializable
     private transient HashMap<E,Object> map;
 
     @Override
+    public Object clone() throws InternalError {
+        try {
+            AmigoSet amigo = new AmigoSet<>();
+            amigo.map.putAll((Map) this.map.clone());
+            return amigo;
+        } catch (Exception e) {
+            throw new InternalError();
+        }
+    }
+
+    @Override
     public boolean remove(Object o) {
         if (map.remove(o) == null) return false;
         return true;
