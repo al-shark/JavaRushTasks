@@ -21,8 +21,7 @@ public class Solution {
     }
 }
 
-//region Description
-log4j.rootLogger=WARN, file, stdout
+/*        log4j.rootLogger=WARN, file, stdout
 
         # Direct log messages to a log file
         log4j.appender.file=org.apache.log4j.RollingFileAppender
@@ -43,4 +42,4 @@ log4j.rootLogger=WARN, file, stdout
         log4j.logger.org.springframework=WARN
         log4j.logger.org.hibernate=WARN
         log4j.logger.org.apache.cxf=WARN
-//endregion
+*/
